@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: atlas-de-portugal
+    runtime: static
+    branch: main
+    buildCommand: 'echo "Atlas de Portugal pronto para publicação"'
+    staticPublishPath: .
