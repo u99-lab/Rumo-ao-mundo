@@ -413,12 +413,6 @@ $('center').onclick = ()=>focusRegion('center');
 $('country').onclick = ()=>focusRegion(null);
 $('tour').onclick = worldTour;
 $('islands').onclick = ()=>focusRegion('azores');
-const madeira = document.createElement('button');
-madeira.id='madeira';
-madeira.textContent='Madeira';
-madeira.onclick=()=>focusRegion('madeira');
-$('islands').textContent='Açores';
-$('islands').after(madeira);
 $('plus').onclick = ()=>{tourId++; if (ready) map.zoomIn();};
 $('minus').onclick = ()=>{tourId++; if (ready) map.zoomOut();};
 $('north').onclick = ()=>{tourId++; if (ready) map.easeTo({bearing:0,pitch:0});};
@@ -436,6 +430,12 @@ $('tilt').onclick = ()=>{
     map.easeTo({pitch,bearing:pitch ? -22 : 0,duration});
   }
 };
+const madeira = document.createElement('button');
+madeira.id='madeira';
+madeira.textContent='Madeira';
+madeira.onclick=()=>focusRegion('madeira');
+$('islands').textContent='Açores';
+$('islands').after(madeira);
 render();
 try {
   const areaColor = ['match',['get','color'],...palette.flatMap((color,i)=>[i,color]),'#78a993'];
