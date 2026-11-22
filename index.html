@@ -1,1 +1,50 @@
-__HTML_PLACEHOLDER__
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f8f7f1">
+<meta name="description" content="Atlas interativo de Portugal com limites administrativos oficiais CAOP, mapas e exploração por distrito, concelho e freguesia.">
+<title>Atlas de Portugal</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css">
+
+<style>
+:root{color-scheme:light;--ink:#142e2a;--muted:#506661;--line:#dce2d9;--paper:#fbfaf4;--green:#164c40;--gold:#e4bd72}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:#102c39;font:15px system-ui,sans-serif}button,select{font:inherit;color:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #ca8732;outline-offset:2px}
+#map{position:absolute;inset:0;background:#142936}header{position:absolute;z-index:2;inset:0 0 auto;min-height:76px;padding:12px 25px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--paper);border-bottom:1px solid var(--line);box-shadow:0 2px 15px #102d3018}
+.brand{display:flex;align-items:center;gap:11px;white-space:nowrap}.brand-symbol{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--green);color:#fcf5de;font-size:24px}.brand strong{font: bold 23px Georgia,serif}.brand small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.15em;margin-top:3px}
+nav{display:flex;gap:3px;background:#e9ede5;padding:4px;border-radius:10px}nav button,.actions button,.tools button,.quick button{border:0;border-radius:7px;background:transparent;padding:9px 13px;font-weight:650;font-size:13px;white-space:nowrap}nav button[aria-pressed=true]{background:var(--green);color:white}nav button:hover:not([aria-pressed=true]),.tools button:hover,.quick button:hover{background:#dce8df}.actions{display:flex;gap:6px}.actions button{border:1px solid var(--line)}.actions button:hover{background:#e9ede5}
+.panel{position:absolute;z-index:1;top:100px;left:24px;width:304px;padding:21px;background:var(--paper);border:1px solid #fff9;border-radius:15px;box-shadow:0 16px 42px #10333225}.eyebrow{color:var(--green);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:800}h1{font:normal 36px/.99 Georgia,serif;letter-spacing:-.035em;margin:8px 0 11px;overflow-wrap:anywhere}.summary{color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 16px}.metric{display:flex;align-items:center;gap:12px;padding:9px 12px;margin-bottom:16px;border-radius:8px;background:#e9eee4}.metric b{font:normal 30px Georgia,serif;color:var(--green)}.metric span{font-size:12px;font-weight:650}
+label{display:block;color:var(--muted);font-size:12px;font-weight:650;margin-bottom:6px}select{width:100%;padding:9px;border:1px solid var(--line);border-radius:7px;background:white;font-size:13px}.quick{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}.quick button{background:#edf0e8;padding:7px 9px;font-size:11px}.quick button[hidden],.metric[hidden],.summary[hidden]{display:none}.tools{position:absolute;right:24px;bottom:65px;z-index:1;display:grid;gap:3px;padding:4px;border-radius:11px;background:var(--paper);box-shadow:0 4px 20px #10333225}.tools button{height:37px;min-width:40px;padding:4px;font-size:18px}.tools #tilt{font-size:12px}.tools #tilt[aria-pressed=true]{background:#d8e9df;color:#164c40}.relief-note{color:var(--muted);font-size:11px;margin:9px 0 0}.relief-note[hidden]{display:none}.tools #north{color:var(--green)}
+.attribution{position:absolute;bottom:0;right:0;z-index:1;background:#fbfaf0e8;padding:4px 8px;font-size:10px}.attribution a{color:var(--green)}.hint{position:absolute;z-index:1;bottom:22px;left:24px;pointer-events:none;background:#fbfaf0eb;border-radius:20px;padding:7px 12px;color:#36534e;font-size:11px}.place{font:700 11px system-ui,sans-serif;color:#1e3733;text-shadow:0 0 3px #fff,0 0 4px #fff,0 1px 3px #fff;white-space:nowrap;pointer-events:none}.place.ocean{font-size:11px;letter-spacing:.2em;color:#426674;text-shadow:none}.place.country{font-size:12px;letter-spacing:.16em;color:#4c625e}.notice{position:absolute;z-index:2;bottom:60px;left:24px;background:var(--paper);padding:10px 14px;border-radius:8px;max-width:75%}
+@media(max-width:900px){header{padding-inline:13px;gap:8px}.panel{left:13px;width:260px}.tools{right:12px}}
+@media(max-width:680px){header{display:grid;grid-template-columns:1fr auto;min-height:102px;padding:8px 10px;gap:7px}.brand strong{font-size:18px}.brand small{display:none}.brand-symbol{width:30px;height:30px;font-size:19px;border-radius:8px}nav{grid-row:2;grid-column:1/-1}nav button{flex:1;padding:7px 6px}.actions button{padding:6px;font-size:11px}.panel{top:auto;bottom:24px;left:8px;width:min(310px,calc(100% - 62px));padding:11px}.eyebrow{font-size:9px}h1{font-size:24px;margin:4px 0 6px}.summary{display:none}.metric{padding:3px 8px;margin-bottom:7px}.metric b{font-size:22px}label{margin-bottom:3px}select{padding:6px}.quick{margin-top:6px}.quick button{padding:4px 7px}.tools{bottom:25px;right:7px}.hint{display:none}}
+</style>
+<script src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
+</head>
+<body>
+<div id="map" aria-label="Mapa interativo de Portugal"></div>
+<header>
+  <div class="brand"><span class="brand-symbol" aria-hidden="true">✧</span><div><strong>Atlas de Portugal</strong><small>Mapa interativo</small></div></div>
+  <nav aria-label="Divisões administrativas"><button data-layer="district" aria-pressed="true">Distritos</button><button data-layer="municipality" aria-pressed="false">Concelhos</button><button data-layer="parish" aria-pressed="false">Freguesias</button></nav>
+  <div class="actions"><button id="center">Zona Centro</button><button id="tour" aria-label="Repetir voo do mundo a Portugal" title="Repetir voo">↻ Flyover</button></div>
+</header>
+<section class="panel" aria-label="Informação territorial">
+  <div id="scope" class="eyebrow">Portugal continental</div>
+  <h1 id="heading" aria-live="polite">Portugal em 3D</h1>
+  <p id="summary" class="summary">Do globo ao mapa de Portugal. Escolhe uma divisão administrativa para a explorar.</p>
+  <div id="metric" class="metric" hidden><b id="count"></b><span id="unit"></span></div>
+  <label for="places" id="place-label">Escolher distrito</label><select id="places"></select>
+  <div class="quick"><button id="back" hidden>← Voltar</button><button id="drill" hidden></button><button id="country">Portugal</button><button id="islands" hidden>Ilhas</button></div>
+  <p class="relief-note" id="relief-note" hidden>Mais altura = mais freguesias. A seleção eleva-se para ficar em destaque.</p>
+</section>
+<div class="tools" aria-label="Controlos do mapa"><button id="north" title="Orientar a norte" aria-label="Orientar a norte">⌖</button><button id="tilt" aria-pressed="true" title="Alternar vista 3D" aria-label="Alternar vista 3D">3D</button><button id="plus" aria-label="Aproximar">+</button><button id="minus" aria-label="Afastar">−</button></div>
+<div class="hint">Arrasta para mover · roda para aproximar · botão direito para inclinar</div>
+<div class="attribution"><a href="https://www.dgterritorio.gov.pt/cartografia/cartografia-tematica/caop" target="_blank" rel="noopener">DGT · CAOP 2025</a> · <a href="https://sig.lneg.pt/server/rest/services/geoPortal/CAOP_DGT/MapServer" target="_blank" rel="noopener">CAOP · Ilhas</a> · <a href="https://www.esri.com/" target="_blank" rel="noopener">Esri World Imagery</a></div>
+<div class="notice" id="notice" role="status" hidden></div>
+
+
+<script src="app.js" defer></script>
+</body>
+</html>
